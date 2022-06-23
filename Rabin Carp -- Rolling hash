@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+   const int q=101; //mod value
+   #define d 256   //d mtlb 1=a,b=2,c=2;
+  
+vector<int> stringMatch(string &txt, string &pat) {
+    // Write your code here
+    
+            vector<int>v;  //
+            //code here.
+            int m =pat.size();
+            int n =txt.size();
+            
+            int h =1;
+            
+            for(int i =1;i<m;i++)
+            {
+                h=(h*d)%q;
+            }
+            
+            int p =0 ,t = 0;
+            for(int i =0;i<m;i++)
+            {
+                p=(p*d+pat[i])%q;
+                t=(t * d + txt[i])%q;
+            }
+            
+            for(int i =0;i<=n-m;i++)
+            {
+                if(t==p)
+               {
+                   if(txt.substr(i,m)==pat)
+                   v.push_back(i);
+               } 
+                     
+                if(i<n-m){
+                t=((d*(t-txt[i]*h))+txt[i+m])%q;
+                if(t<0)t=t+q;}
+                
+            }
+//             if(v.size()==0)
+//            {
+//                v.push_back(-1);
+//                return v;
+//            }
+           return v;
+}
